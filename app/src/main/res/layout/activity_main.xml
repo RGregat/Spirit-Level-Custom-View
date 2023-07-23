@@ -6,37 +6,78 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <com.sample.rgregat.spiritlevelview.view.SpiritLevelView
-        android:id="@+id/spiritLevelView"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        app:bubbleColor="@color/green500"
-        app:bubbleInterpolationTimer="150"
-        app:bubbleSize="25"
-        app:bubbleThresholdColor="@color/deeporange500"
-        app:crossStrokeColor="@color/gray500"
-        app:crossStrokeWidth="2.5"
-        app:innerCircleStrokeColor="@color/gray500"
-        app:innerCircleStrokeWidth="2.5"
-        app:labelTextSize="30"
-        app:layout_constraintBottom_toTopOf="@+id/spiritLevelViewContainer"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:outerCircleStrokeColor="@color/black"
-        app:outerCircleStrokeWidth="5"
-        app:thresholdValue="5"
-        app:withLabel="true"
-        app:withThresholdIndication="true" />
-
-    <LinearLayout
-        android:id="@+id/spiritLevelViewContainer"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:orientation="horizontal"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spiritLevelView" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.sample.rgregat.spiritlevelview.view.SpiritLevelView
+                android:id="@+id/spiritLevelView"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:layout_marginTop="8dp"
+                app:bubbleColor="@color/green500"
+                app:bubbleInterpolationTimer="150"
+                app:bubbleSize="25"
+                app:bubbleThresholdColor="@color/deeporange500"
+                app:crossStrokeColor="@color/gray500"
+                app:crossStrokeWidth="2.5"
+                app:innerCircleStrokeColor="@color/gray500"
+                app:innerCircleStrokeWidth="2.5"
+                app:labelTextSize="30"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.495"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView"
+                app:outerCircleStrokeColor="@color/black"
+                app:outerCircleStrokeWidth="5"
+                app:thresholdValue="5"
+                app:withLabel="true"
+                app:withThresholdIndication="true" />
+
+            <LinearLayout
+                android:id="@+id/spiritLevelViewContainer"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="24dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.497"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView2"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Added directly in XML-Layout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="Added programmatically"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spiritLevelView" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

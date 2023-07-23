@@ -30,11 +30,24 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
+        // Create a second SpiritLevelView with the Builder class.
+        // Configure the available attributes through the Builder class
+        // or keep the default attributes.
         spiritLevelView = SpiritLevelView.Builder(this)
             .bubbleColor(getColor(R.color.blue500))
             .bubbleThresholdColor(getColor(R.color.pink500))
+            .outerCircleStrokeColor(R.color.black)
+            .innerCircleStrokeColor(R.color.gray500)
+            .crossStrokeColor(R.color.gray500)
+            .outerCircleStrokeWidth(5f)
+            .innerCircleStrokeWidth(2.5f)
+            .crossStrokeWidth(2.5f)
             .bubbleSize(10f)
-            .withLabel(false)
+            .withLabel(true)
+            .labelTextSize(30f)
+            .bubbleInterpolationTimer(150L)
+            .withThresholdIndication(true)
+            .thresholdValue(5f)
             .build()
         binding.spiritLevelViewContainer.addView(spiritLevelView)
 
@@ -72,6 +85,8 @@ class MainActivity : AppCompatActivity() {
                     event.displayOrientation,
                     event.flatOnGround)
             }
+
+            else -> {}
         }
     }
 }

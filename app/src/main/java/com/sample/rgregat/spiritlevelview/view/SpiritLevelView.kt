@@ -98,6 +98,41 @@ class SpiritLevelView @JvmOverloads constructor(
     private var rollTextX: Float = 0f
     private var rollTextY: Float = 0f
 
+    constructor(
+        context: Context,
+        bubbleColor: Int,
+        bubbleThresholdColor: Int,
+        outerCircleStrokeColor: Int,
+        innerCircleStrokeColor: Int,
+        crossStrokeColor: Int,
+        bubbleSize: Float,
+        outerCircleStrokeWidth: Float,
+        innerCircleStrokeWidth: Float,
+        crossStrokeWidth: Float,
+        bubbleInterpolationTimer: Long,
+        withThresholdIndication: Boolean,
+        thresholdValue: Float,
+        withLabel: Boolean,
+        labelTextSize: Float
+    ) : this(context) {
+        this.bubbleColor = bubbleColor
+        this.bubbleThresholdColor = bubbleThresholdColor
+        this.outerCircleStrokeColor = outerCircleStrokeColor
+        this.innerCircleStrokeColor = innerCircleStrokeColor
+        this.crossStrokeColor = crossStrokeColor
+        this.bubbleSize = bubbleSize
+        this.outerCircleStrokeWidth = outerCircleStrokeWidth
+        this.innerCircleStrokeWidth = innerCircleStrokeWidth
+        this.crossStrokeWidth = crossStrokeWidth
+        this.bubbleInterpolationTimer = bubbleInterpolationTimer
+        this.withThresholdIndication = withThresholdIndication
+        this.thresholdValue = thresholdValue
+        this.withLabel = withLabel
+        this.labelTextSize = labelTextSize
+
+        initPaintInstances()
+    }
+
     init {
         context.theme.obtainStyledAttributes(
             attrs,
@@ -131,6 +166,10 @@ class SpiritLevelView @JvmOverloads constructor(
     }
 
     init {
+        initPaintInstances()
+    }
+
+    private fun initPaintInstances() {
         outerCirclePaint.isAntiAlias = true
         outerCirclePaint.style = Paint.Style.STROKE
         outerCirclePaint.color = outerCircleStrokeColor
@@ -155,40 +194,6 @@ class SpiritLevelView @JvmOverloads constructor(
         textPaint.textSize = labelTextSize
     }
 
-    constructor(
-        context: Context,
-        bubbleColor: Int,
-        bubbleThresholdColor: Int,
-        outerCircleStrokeColor: Int,
-        innerCircleStrokeColor: Int,
-        crossStrokeColor: Int,
-        bubbleSize: Float,
-        outerCircleStrokeWidth: Float,
-        innerCircleStrokeWidth: Float,
-        crossStrokeWidth: Float,
-        bubbleInterpolationTimer: Long,
-        withThresholdIndication: Boolean,
-        thresholdValue: Float,
-        withLabel: Boolean,
-        labelTextSize: Float
-    ) : this(context) {
-        this.bubbleColor = bubbleColor
-        this.bubbleThresholdColor = bubbleThresholdColor
-        this.outerCircleStrokeColor = outerCircleStrokeColor
-        this.innerCircleStrokeColor = innerCircleStrokeColor
-        this.crossStrokeColor = crossStrokeColor
-        this.bubbleSize = bubbleSize
-        this.outerCircleStrokeWidth = outerCircleStrokeWidth
-        this.innerCircleStrokeWidth = innerCircleStrokeWidth
-        this.crossStrokeWidth = crossStrokeWidth
-        this.bubbleInterpolationTimer = bubbleInterpolationTimer
-        this.withThresholdIndication = withThresholdIndication
-        this.thresholdValue = thresholdValue
-        this.withLabel = withLabel
-        this.labelTextSize = labelTextSize
-    }
-
-
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         val widthSize = MeasureSpec.getSize(widthMeasureSpec)
         val heightSize = MeasureSpec.getSize(heightMeasureSpec)
@@ -198,13 +203,21 @@ class SpiritLevelView @JvmOverloads constructor(
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
 
+        // The SpiritLevel should be drawn at the center of our parent view.
         cX = w * 0.5f
         cY = h * 0.5f
+
         bubbleX = cX
         bubbleY = cY
 
+        // find the shortest side to draw an outer circle which
+        // will be definitely inside of our parent view.
         outerCircleRadius = if (cX > cY) cY else cX
         outerCircleRadius *= OUTER_CIRCLE_REDUCTION_FACTOR
+
+        // Find the correct radius based on the outerCircleRadius and
+        // the defined thresholdValue. The value of 25 is an arbitrary
+        // value.
         innerCircleRadius = ((outerCircleRadius / 90) * thresholdValue) + 25
     }
 
@@ -216,18 +229,40 @@ class SpiritLevelView @JvmOverloads constructor(
         }
 
         // Draw the crosshair
-        canvas.drawLine(cX, cY - (outerCircleRadius), cX, cY + (outerCircleRadius), crossPaint)
-        canvas.drawLine(cX - (outerCircleRadius), cY, cX + (outerCircleRadius), cY, crossPaint)
+        canvas.drawLine(
+            cX,
+            cY - (outerCircleRadius),
+            cX,
+            cY + (outerCircleRadius),
+            crossPaint)
+        canvas.drawLine(
+            cX - (outerCircleRadius),
+            cY,
+            cX + (outerCircleRadius),
+            cY,
+            crossPaint)
 
         // Draw the outer circle (boundary)
-        canvas.drawCircle(cX, cY, outerCircleRadius, outerCirclePaint)
+        canvas.drawCircle(
+            cX,
+            cY,
+            outerCircleRadius,
+            outerCirclePaint)
 
         // Draw the inner circle (threshold)
-        canvas.drawCircle(cX, cY, innerCircleRadius, innerCirclePaint)
+        canvas.drawCircle(
+            cX,
+            cY,
+            innerCircleRadius,
+            innerCirclePaint)
 
         // Draw the spirit-level (bubble) based on the current values
         // for pitch and roll
-        canvas.drawCircle(bubbleX, bubbleY, bubbleSize, bubblePaint)
+        canvas.drawCircle(
+            bubbleX,
+            bubbleY,
+            bubbleSize,
+            bubblePaint)
 
         // Draw pitch and roll values as text labels
         if(withLabel) {
@@ -246,12 +281,21 @@ class SpiritLevelView @JvmOverloads constructor(
         }
     }
 
+    /**
+     * @param pitch The Pitch angle should be the angle around the x-Axis (Android sensor coordinate system)
+     * @param roll The Roll angle should be the angle around the y-Axis (Android sensor coordinate system)
+     * @param rotation This is the display rotation. The display rotation is used to adjust the Pitch-Value if flatOnGround
+     *      is set to true.
+     * @param flatOnGround This value is typically obtained from the raw accelerometer sensor.
+     */
     fun updateData(
         pitch: Double,
         roll: Double,
         rotation: Int,
         flatOnGround: Boolean
     ) {
+        // If the value for Pitch or Roll is the same as the last
+        // time this function was called, do nothing and return early.
         if (this.pitch.toInt() == pitch.toInt() &&
             this.roll.toInt() == roll.toInt()
         ) {
@@ -305,6 +349,13 @@ class SpiritLevelView @JvmOverloads constructor(
         }
     }
 
+    /**
+     * This is potentially overcomplicated, but with the following check the same SpiritLevel
+     * can be used to check if the Smartphone is held vertically or horizontally.
+     *
+     * ToDo: For some reasons are the cases Surface.ROTATION_180 and Surface.ROTATION_270
+     *      not implemented.
+     */
     private fun checkAgainstThreshold(
         flatOnGround: Boolean,
         pitch: Double,
@@ -369,6 +420,14 @@ class SpiritLevelView @JvmOverloads constructor(
         return tiltDirection
     }
 
+    /**
+     * The bubble color depends on the tiltDirection. If it is set to
+     * Utils.TiltDirection.NONE the Smartphone is held vertically or
+     * horizontally within the defined threshold value.
+     *
+     * ToDo: The tiltDirection can also be shown on the view to give
+     *      a hint to which side the Smartphone is tilted.
+     */
     private fun chooseBubbleColor(tiltDirection: Utils.TiltDirection) {
         when (tiltDirection) {
             Utils.TiltDirection.NONE -> {
@@ -393,6 +452,11 @@ class SpiritLevelView @JvmOverloads constructor(
         }
     }
 
+    /**
+     * Calculate the new Position for the bubble. This position is not directly used
+     * to update the position of the bubble. The real position is calculated in the function
+     * animatedBubblePosition().
+     */
     private fun calculateBubblePosition() {
         bubbleXNew =
             (cX + (outerCircleRadius - bubbleSize / 2) * sin(Math.toRadians(this.roll)) * cos(
@@ -404,6 +468,10 @@ class SpiritLevelView @JvmOverloads constructor(
             (cY - (outerCircleRadius - bubbleSize / 2) * sin(Math.toRadians(this.pitch))).toFloat()
     }
 
+    /**
+     * To make the position update of the bubble more smooth, this function interpolates the x and y
+     * coordinates between the old and new position.
+     */
     private fun animateBubblePosition() {
         if (animatorX != null) {
             animatorX!!.cancel()
@@ -471,6 +539,23 @@ class SpiritLevelView @JvmOverloads constructor(
         textPaint.getTextBounds(rollText, 0, rollText.length, rollTextBound)
     }
 
+    /**
+     * Configure the SpiritLevelView. The following attributes can be configured
+     * - bubbleColor [Int]
+     * - bubbleThresholdColor [Int]
+     * - outerCircleStrokeColor [Int]
+     * - innerCircleStrokeColor [Int]
+     * - crossStrokeColor [Int]
+     * - bubbleSize [Float]
+     * - outerCircleStrokeWidth [Float]
+     * - innerCircleStrokeWidth [Float]
+     * - crossStrokeWidth [Float]
+     * - bubbleInterpolationTimer [Int]
+     * - withThresholdIndication [Boolean]
+     * - thresholdValue [Float]
+     * - withLabel [Boolean]
+     * - labelTextSize [Float]
+     */
     class Builder(private val context: Context) {
         private var bubbleColor: Int = DEFAULT_BUBBLE_COLOR
         private var bubbleThresholdColor: Int = DEFAULT_THRESHOLD_COLOR
