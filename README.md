@@ -95,3 +95,7 @@ spiritLevelView = SpiritLevelView.Builder(this)
         .thresholdValue(5f)
         .build()
 ```
+
+## Result
+
+![Screenshot_20230723_173228](https://github.com/RGregat/Spirit-Level-Custom-View/assets/3974162/f3831711-7034-4e14-90c0-0885b46054ec)
