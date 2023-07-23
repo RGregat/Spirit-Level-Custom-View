@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SpiritLevelView">
+        <attr name="bubbleColor" format="color" />
+        <attr name="bubbleThresholdColor" format="color" />
+        <attr name="outerCircleStrokeColor" format="color"/>
+        <attr name="innerCircleStrokeColor" format="color"/>
+        <attr name="crossStrokeColor" format="color"/>
+        <attr name="bubbleSize" format="float" />
+        <attr name="outerCircleStrokeWidth" format="float" />
+        <attr name="innerCircleStrokeWidth" format="float" />
+        <attr name="crossStrokeWidth" format="float" />
+        <attr name="bubbleInterpolationTimer" format="integer" />
+        <attr name="withThresholdIndication" format="boolean" />
+        <attr name="thresholdValue" format="float" />
+        <attr name="withLabel" format="boolean" />
+        <attr name="labelTextSize" format="float" />
+    </declare-styleable>
+</resources>

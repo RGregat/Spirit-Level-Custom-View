@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <com.sample.rgregat.spiritlevelview.view.SpiritLevelView
+        android:id="@+id/spiritLevelView"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        app:bubbleColor="@color/green500"
+        app:bubbleInterpolationTimer="150"
+        app:bubbleSize="25"
+        app:bubbleThresholdColor="@color/deeporange500"
+        app:crossStrokeColor="@color/gray500"
+        app:crossStrokeWidth="2.5"
+        app:innerCircleStrokeColor="@color/gray500"
+        app:innerCircleStrokeWidth="2.5"
+        app:labelTextSize="30"
+        app:layout_constraintBottom_toTopOf="@+id/spiritLevelViewContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:outerCircleStrokeColor="@color/black"
+        app:outerCircleStrokeWidth="5"
+        app:thresholdValue="5"
+        app:withLabel="true"
+        app:withThresholdIndication="true" />
+
+    <LinearLayout
+        android:id="@+id/spiritLevelViewContainer"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spiritLevelView" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
