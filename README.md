@@ -46,7 +46,7 @@
 
 # Usage
 
-The SpiritiLevelView can be added directly to a XML-Layout or prgammatically instantiated and added to a parent view
+The SpiritiLevelView can be added directly to a XML-Layout or progammatically instantiated and added to a parent view
 
 ## XML-Layout
 
