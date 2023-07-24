@@ -487,12 +487,14 @@ class SpiritLevelView @JvmOverloads constructor(
                 // I'm lazy here, the default anchor position of a drawn
                 // text is at the top left corner. To support all possible
                 // anchor positions, this logic here has to adopt to it.
-                if ((bubbleX + pitchTextBound.right) >= (cX + outerCircleRadius)) {
-                    pitchTextX = bubbleX - bubbleSize - pitchTextBound.width()
-                    rollTextX = bubbleX - bubbleSize - rollTextBound.width()
-                } else {
-                    pitchTextX = bubbleX + bubbleSize
-                    rollTextX = bubbleX + bubbleSize
+                if(withLabel) {
+                    if ((bubbleX + pitchTextBound.right) >= (cX + outerCircleRadius)) {
+                        pitchTextX = bubbleX - bubbleSize - pitchTextBound.width()
+                        rollTextX = bubbleX - bubbleSize - rollTextBound.width()
+                    } else {
+                        pitchTextX = bubbleX + bubbleSize
+                        rollTextX = bubbleX + bubbleSize
+                    }
                 }
 
                 invalidate()
@@ -514,12 +516,14 @@ class SpiritLevelView @JvmOverloads constructor(
                 // I'm lazy here, the default anchor position of a drawn
                 // text is at the top left corner. To support all possible
                 // anchor positions, this logic here has to adopt to it.
-                if ((bubbleY + rollTextBound.bottom) >= (cY + outerCircleRadius)) {
-                    pitchTextY = bubbleY - bubbleSize - pitchTextBound.height() - 5
-                    rollTextY = bubbleY - bubbleSize
-                } else {
-                    pitchTextY = bubbleY + bubbleSize
-                    rollTextY = bubbleY + bubbleSize + pitchTextBound.height() + 5
+                if(withLabel) {
+                    if ((bubbleY + rollTextBound.bottom) >= (cY + outerCircleRadius)) {
+                        pitchTextY = bubbleY - bubbleSize - pitchTextBound.height() - 5
+                        rollTextY = bubbleY - bubbleSize
+                    } else {
+                        pitchTextY = bubbleY + bubbleSize
+                        rollTextY = bubbleY + bubbleSize + pitchTextBound.height() + 5
+                    }
                 }
 
                 invalidate()
