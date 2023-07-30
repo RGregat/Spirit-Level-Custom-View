@@ -6,6 +6,8 @@
         <attr name="outerCircleStrokeColor" format="color"/>
         <attr name="innerCircleStrokeColor" format="color"/>
         <attr name="crossStrokeColor" format="color"/>
+        <attr name="spiritLevelBackgroundColor" format="color" />
+        <attr name="viewBackgroundColor" format="color" />
         <attr name="bubbleSize" format="float" />
         <attr name="outerCircleStrokeWidth" format="float" />
         <attr name="innerCircleStrokeWidth" format="float" />
@@ -15,5 +17,7 @@
         <attr name="thresholdValue" format="float" />
         <attr name="withLabel" format="boolean" />
         <attr name="labelTextSize" format="float" />
+        <attr name="labelColor" format="color" />
+        <attr name="withFlatOnFroundCorrection" format="boolean" />
     </declare-styleable>
 </resources>

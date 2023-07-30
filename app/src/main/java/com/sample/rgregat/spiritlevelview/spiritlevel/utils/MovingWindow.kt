@@ -1,4 +1,4 @@
-package com.sample.rgregat.spiritlevelview.utils
+package com.sample.rgregat.spiritlevelview.spiritlevel.utils
 
 class MovingWindow(
     private val maxListCount: Int
