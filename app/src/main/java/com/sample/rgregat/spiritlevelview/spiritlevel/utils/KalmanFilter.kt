@@ -1,4 +1,4 @@
-package com.sample.rgregat.spiritlevelview.utils
+package com.sample.rgregat.spiritlevelview.spiritlevel.utils
 
 import org.ejml.data.DMatrixRMaj
 import org.ejml.dense.row.CommonOps_DDRM

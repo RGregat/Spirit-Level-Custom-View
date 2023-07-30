@@ -7,4 +7,7 @@
     <color name="gray500">#9E9E9E</color>
     <color name="blue500">#2196F3</color>
     <color name="pink500">#9C27B0</color>
+    <color name="bluegray100">#CFD8DC</color>
+    <color name="bluegray400">#78909C</color>
+    <color name="bluegray800">#37474F</color>
 </resources>

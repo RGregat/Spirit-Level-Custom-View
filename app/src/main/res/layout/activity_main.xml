@@ -18,29 +18,33 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <com.sample.rgregat.spiritlevelview.view.SpiritLevelView
+            <com.sample.rgregat.spiritlevelview.spiritlevel.view.SpiritLevelView
                 android:id="@+id/spiritLevelView"
                 android:layout_width="300dp"
                 android:layout_height="300dp"
                 android:layout_marginTop="8dp"
+                app:viewBackgroundColor="@color/white"
+                app:spiritLevelBackgroundColor="@color/white"
                 app:bubbleColor="@color/green500"
-                app:bubbleInterpolationTimer="150"
-                app:bubbleSize="25"
                 app:bubbleThresholdColor="@color/deeporange500"
                 app:crossStrokeColor="@color/gray500"
-                app:crossStrokeWidth="2.5"
                 app:innerCircleStrokeColor="@color/gray500"
-                app:innerCircleStrokeWidth="2.5"
+                app:outerCircleStrokeColor="@color/black"
+                app:labelColor="@color/black"
+                app:bubbleSize="25"
                 app:labelTextSize="30"
+                app:crossStrokeWidth="2.5"
+                app:innerCircleStrokeWidth="2.5"
+                app:outerCircleStrokeWidth="5"
+                app:thresholdValue="5"
+                app:bubbleInterpolationTimer="150"
+                app:withLabel="true"
+                app:withThresholdIndication="true"
+                app:withFlatOnFroundCorrection="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.495"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView"
-                app:outerCircleStrokeColor="@color/black"
-                app:outerCircleStrokeWidth="5"
-                app:thresholdValue="5"
-                app:withLabel="true"
-                app:withThresholdIndication="true" />
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
 
             <LinearLayout
                 android:id="@+id/spiritLevelViewContainer"

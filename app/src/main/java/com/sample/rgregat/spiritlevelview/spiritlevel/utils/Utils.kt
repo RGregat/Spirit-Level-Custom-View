@@ -1,4 +1,4 @@
-package com.sample.rgregat.spiritlevelview.utils
+package com.sample.rgregat.spiritlevelview.spiritlevel.utils
 
 import android.view.Display
 import android.view.Surface
@@ -50,13 +50,5 @@ class Utils {
             val factor = 10.0.pow(numFractionDigits.toDouble())
             return (this * factor).roundToInt() / factor
         }
-    }
-
-    enum class TiltDirection {
-        LEFT,
-        RIGHT,
-        BACK,
-        FRONT,
-        NONE
     }
 }

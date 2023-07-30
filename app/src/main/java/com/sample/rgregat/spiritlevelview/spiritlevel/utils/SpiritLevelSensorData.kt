@@ -1,4 +1,4 @@
-package com.sample.rgregat.spiritlevelview.utils
+package com.sample.rgregat.spiritlevelview.spiritlevel.utils
 
 import android.hardware.Sensor
 import android.hardware.SensorEvent
@@ -9,15 +9,16 @@ import android.os.Looper
 import android.view.Display
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
-import com.sample.rgregat.spiritlevelview.SpiritLevelCalculatorEvent
-import com.sample.rgregat.spiritlevelview.utils.Utils.Companion.roundTo
-import com.sample.rgregat.spiritlevelview.view.SpiritLevelView.Companion.UPDATE_DELAY
+import com.sample.rgregat.spiritlevelview.spiritlevel.event.SpiritLevelSensorDataEvent
+import com.sample.rgregat.spiritlevelview.spiritlevel.utils.Utils.Companion.roundTo
+import com.sample.rgregat.spiritlevelview.spiritlevel.view.SpiritLevelView.Companion.UPDATE_DELAY
+
 import kotlin.math.abs
 
-class SpiritLevelCalculator(
+class SpiritLevelSensorData(
     private val display: Display,
     private val sensorManager: SensorManager,
-    private val onEvent: (SpiritLevelCalculatorEvent) -> Unit
+    private val onEvent: (SpiritLevelSensorDataEvent) -> Unit
 ) : SensorEventListener, DefaultLifecycleObserver {
 
     private val handler = Handler(Looper.getMainLooper())
@@ -32,7 +33,7 @@ class SpiritLevelCalculator(
     private var movingWindowPitch: MovingWindow = MovingWindow(10)
     private var movingWindowRoll: MovingWindow = MovingWindow(10)
 
-    private var tiltDirection = Utils.TiltDirection.NONE
+    private var tiltDirection = SpiritLevelTiltDirectionType.NONE
 
     override fun onResume(owner: LifecycleOwner) {
         sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)?.also { accelerometer ->
@@ -114,7 +115,7 @@ class SpiritLevelCalculator(
     }
 
     private fun updateOutput() {
-        tiltDirection = Utils.TiltDirection.NONE
+        tiltDirection = SpiritLevelTiltDirectionType.NONE
 
         var flatOnGround = false
 
@@ -130,11 +131,16 @@ class SpiritLevelCalculator(
         val roundedPitch = avgPitch.roundTo(1)
         val roundedRoll = avgRoll.roundTo(1)
 
-        onEvent(SpiritLevelCalculatorEvent.UpdateData( roundedPitch,
-            roundedRoll,
-            display.rotation,
-            flatOnGround))
+        onEvent(
+            SpiritLevelSensorDataEvent.UpdateData(
+                roundedPitch,
+                roundedRoll,
+                display.rotation,
+                flatOnGround
+            )
+        )
 
         handler.postDelayed(updateOutputRunnable, UPDATE_DELAY)
     }
+
 }
