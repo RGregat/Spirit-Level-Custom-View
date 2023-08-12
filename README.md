@@ -8,24 +8,30 @@
 <attr name="bubbleThresholdColor" format="color" />
 
 <!-- Default value: Color.BLACK -->
-<attr name="outerCircleStrokeColor" format="color"/>
+<attr name="outerCircleStrokeColor" format="color" />
 
 <!-- Default value: Color.BLACK -->
-<attr name="innerCircleStrokeColor" format="color"/>
+<attr name="innerCircleStrokeColor" format="color" />
 
 <!-- Default value: Color.BLACK -->
-<attr name="crossStrokeColor" format="color"/>
+<attr name="crossStrokeColor" format="color" />
 
-<!-- Default value: 25 -->
+<!-- Default value: Color:WHITE -->
+<attr name="spiritLevelBackgroundColor" format="color" />
+
+<!-- Default value: Color:WHITE -->
+<attr name="viewBackgroundColor" format="color" />
+
+<!-- Default value: 25 DP-->
 <attr name="bubbleSize" format="float" />
 
-<!-- Default value: 2.5 -->
+<!-- Default value: 2.5 DP-->
 <attr name="outerCircleStrokeWidth" format="float" />
 
-<!-- Default value: 2.5 -->
+<!-- Default value: 2.5 DP-->
 <attr name="innerCircleStrokeWidth" format="float" />
 
-<!-- Default value: 2.5 -->
+<!-- Default value: 2.5 DP-->
 <attr name="crossStrokeWidth" format="float" />
 
 <!-- Default value: 150 -->
@@ -40,8 +46,11 @@
 <!-- Default value: true -->
 <attr name="withLabel" format="boolean" />
 
-<!-- Default value: 20 -->
+<!-- Default value: 20 DP-->
 <attr name="labelTextSize" format="float" />
+
+<!-- Default value: true -->
+<attr name="withFlatOnFroundCorrection" format="boolean" />
 ```
 
 # Usage
@@ -55,45 +64,53 @@ The SpiritiLevelView can be added directly to a XML-Layout or progammatically in
 	android:id="@+id/spiritLevelView"
         android:layout_width="300dp"
         android:layout_height="300dp"
-        app:bubbleColor="@color/green500"
-        app:bubbleInterpolationTimer="150"
-        app:bubbleSize="25"
-        app:bubbleThresholdColor="@color/deeporange500"
-        app:crossStrokeColor="@color/gray500"
-        app:crossStrokeWidth="2.5"
-        app:innerCircleStrokeColor="@color/gray500"
-        app:innerCircleStrokeWidth="2.5"
-        app:labelTextSize="30"
+        app:viewBackgroundColor="@color/white"
+	app:spiritLevelBackgroundColor="@color/white"
+	app:bubbleColor="@color/green500"
+	app:bubbleThresholdColor="@color/deeporange500"
+	app:crossStrokeColor="@color/gray500"
+	app:innerCircleStrokeColor="@color/gray500"
+	app:outerCircleStrokeColor="@color/black"
+	app:labelColor="@color/black"
+	app:bubbleSize="25"
+	app:labelTextSize="30"
+	app:crossStrokeWidth="2.5"
+	app:innerCircleStrokeWidth="2.5"
+	app:outerCircleStrokeWidth="5"
+	app:thresholdValue="5"
+	app:bubbleInterpolationTimer="150"
+	app:withLabel="true"
+	app:withThresholdIndication="true"
+	app:withFlatOnFroundCorrection="true"
         app:layout_constraintBottom_toTopOf="@+id/spiritLevelViewContainer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:outerCircleStrokeColor="@color/black"
-        app:outerCircleStrokeWidth="5"
-        app:thresholdValue="5"
-        app:withLabel="true"
-        app:withThresholdIndication="true" />
+        app:layout_constraintTop_toTopOf="parent" />
 ```
 
 ## Programmatically
 
 ```kotlin
 spiritLevelView = SpiritLevelView.Builder(this)
-	.bubbleColor(getColor(R.color.blue500))
-        .bubbleThresholdColor(getColor(R.color.pink500))
-        .outerCircleStrokeColor(R.color.black)
-        .innerCircleStrokeColor(R.color.gray500)
-        .crossStrokeColor(R.color.gray500)
-        .outerCircleStrokeWidth(5f)
-        .innerCircleStrokeWidth(2.5f)
-        .crossStrokeWidth(2.5f)
-        .bubbleSize(10f)
-        .withLabel(true)
-        .labelTextSize(30f)
-        .bubbleInterpolationTimer(150L)
-        .withThresholdIndication(true)
-        .thresholdValue(5f)
-        .build()
+	.viewBackgroundColor(getColor(R.color.white))
+    	.spiritLevelBackgroundColor(getColor(R.color.bluegray800))
+    	.outerCircleStrokeColor(getColor(R.color.bluegray400))
+    	.innerCircleStrokeColor(getColor(R.color.bluegray100))
+	.crossStrokeColor(getColor(R.color.bluegray100))
+    	.bubbleColor(getColor(R.color.blue500))
+    	.bubbleThresholdColor(getColor(R.color.pink500))
+    	.labelColor(getColor(R.color.white))
+    	.outerCircleStrokeWidth(10f)
+    	.innerCircleStrokeWidth(2.5f)
+    	.crossStrokeWidth(2.5f)
+    	.bubbleSize(10f)
+    	.withLabel(true)
+    	.labelTextSize(30f)
+    	.bubbleInterpolationTimer(150L)
+    	.withThresholdIndication(true)
+    	.thresholdValue(5f)
+    	.withFlatOnGroundCorrection(false)
+    	.build()
 ```
 
 ## Result
