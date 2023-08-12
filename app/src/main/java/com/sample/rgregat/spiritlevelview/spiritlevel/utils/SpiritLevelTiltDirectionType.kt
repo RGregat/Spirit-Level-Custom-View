@@ -17,5 +17,4 @@ annotation class SpiritLevelTiltDirectionType {
         const val BACK = 3
         const val FRONT = 4
     }
-
 }

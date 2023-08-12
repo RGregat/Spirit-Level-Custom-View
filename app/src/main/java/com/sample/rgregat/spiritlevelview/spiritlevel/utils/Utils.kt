@@ -1,5 +1,7 @@
 package com.sample.rgregat.spiritlevelview.spiritlevel.utils
 
+import android.content.Context
+import android.util.TypedValue
 import android.view.Display
 import android.view.Surface
 import kotlin.math.pow
@@ -49,6 +51,14 @@ class Utils {
         fun Float.roundTo(numFractionDigits: Int): Double {
             val factor = 10.0.pow(numFractionDigits.toDouble())
             return (this * factor).roundToInt() / factor
+        }
+
+        fun dpToPx(context: Context, dp: Float): Float {
+            return TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP,
+                dp,
+                context.resources.displayMetrics,
+            )
         }
     }
 }
